@@ -146,7 +146,7 @@ class _Array {
 
 
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
-	join(delim) {
+	join(delim:=",") {
 		
 		result := ""
 		
