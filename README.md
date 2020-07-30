@@ -1,7 +1,7 @@
 # array.ahk
-## Conversion of JavaScript's Array methods to AutoHotkey
+## Conversion of JavaScript's Array methods to AutoHotKey
 
-AutoHotKey is an extremely versatile prototype-based language but lacks built-in iteration helper methods (as of 1.1.33.02) to perform many of the common behaviors found in other languages. This project ports most of JavaScript's Array object methods to AutoHotKey's Array object.
+AutoHotKey lacks built-in iteration helper methods (as of 1.1.33) to perform many of the common array behaviors found in other languages. This package ports most of JavaScript's Array object methods to AutoHotKey's Array object.
 
 ### Ported Methods
 * concat
@@ -51,27 +51,31 @@ msgbox, % [1,2,3].join()
 
 Usage: `Array.<fn>([params*])`
 ```autohotkey
-arrayInt := [1, 5, 10]
-arrayObj := [{"name": "bob", "age": 22}, {"name": "tom", "age": 51}]
-
 ; Map to doubled value
-arrayInt.map(func("double_int")) ; Output: [2, 10, 20]
+arrayInt := [1, 5, 10]
+arrayInt.map(func("double_int"))
+; => [2, 10, 20]
 
 double_int(int) {
 	return int * 2
 }
 
+
 ; Map to object property
-arrayObj.map(func("get_name")) ; Output: ["bob", "tom"]
+arrayObj.map(func("get_name")) 
+; => ["bob", "tom"]
 
 get_name(obj) {
 	return obj.name
 }
 
+
 ; Method chaining
-arrayObj.map(func("get_prop").bind("age"))
+arrayObj := [{"name": "bob", "age": 22}, {"name": "tom", "age": 51}]
+msgbox, % arrayObj.map(func("get_prop").bind("age"))
 	.map(func("double_int"))
 	.join(",")
+; => "44,102"
 
 get_prop(prop, obj) {
 	return obj[prop]
@@ -85,9 +89,6 @@ JavaScript does not expose start/end or left/right parameters and neither does t
 `Array.sort([params*])`  
 ```autohotkey
 arrayInt := [11,9,5,10,1,6,3,4,7,8,2]
-
-; Indirect usage
-arrayInt.sort()      ; Output: [1,2,3,4,5,6,7,8,9,10,11]
-
-; Direct usage - each library function facades to the same invocation below
+arrayInt.sort()
+; => [1,2,3,4,5,6,7,8,9,10,11]
 ```
