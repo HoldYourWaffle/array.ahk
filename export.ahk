@@ -33,7 +33,7 @@ class _Array {
 	every(callback) {
 
 		for index, element in this
-			if not callback.Call(element, index, this)
+			if !callback.Call(element, index, this)
 				return false
 
 		return true
@@ -43,7 +43,7 @@ class _Array {
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
 	fill(value, start:=0, end:=0) {
 
-		len := this.Length()
+		len := this.Count()
 
 		; START: Adjust 1 based index, check signage, set defaults
 		if (start > 0)
@@ -127,7 +127,7 @@ class _Array {
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
 	indexOf(searchElement, fromIndex:=0) {
 		
-		len := this.Length()
+		len := this.Count()
 
 		if (fromIndex > 0)
 			start := fromIndex - 1    ; Include starting index going forward
@@ -151,7 +151,7 @@ class _Array {
 		result := ""
 		
 		for index, element in this
-			result .= element (index < this.Length() ? delim : "")
+			result .= element (index < this.Count() ? delim : "")
 
 		return result
 	}
@@ -161,7 +161,7 @@ class _Array {
 	;   - Are we not able to return the first found starting from the back?
 	lastIndexOf(searchElement, fromIndex:=0) {
 		
-		len := this.Length()
+		len := this.Count()
 		foundIdx := -1
 
 		if (fromIndex > len)
@@ -198,16 +198,16 @@ class _Array {
 	; -->[A,B,C,D,E,F]
 	reduce(callback, initialValue:="__NULL__") {
 
-		arrLen := this.Length()
+		len := this.Count()
 
 		; initialValue not defined
 		if (initialValue == "__NULL__") {
 
-			if (arrLen < 1) {
+			if (len < 1) {
 				; Empty array with no intial value
 				return
 			}
-			else if (arrLen == 1) {
+			else if (len == 1) {
 				; Single item array with no initial value
 				return this[1]
 			}
@@ -216,7 +216,7 @@ class _Array {
 			initialValue := this[1]
 
 			; Loop n-1 times (start at 2nd element)
-			iterations := arrLen - 1 
+			iterations := len - 1 
 
 			; Set index A_Index+1 each iteration
 			idxOffset := 1
@@ -224,13 +224,13 @@ class _Array {
 		} else {
 		; initialValue defined
 
-			if (arrLen == 0) {
+			if (len == 0) {
 				; Empty array with initial value
 				return initialValue
 			}
 
 			; Loop n times (starting at 1st element)
-			iterations := arrLen
+			iterations := len
 
 			; Set index A_Index each iteration
 			idxOffset := 0
@@ -253,25 +253,25 @@ class _Array {
 	; [A,B,C,D,E,F]<--
 	reduceRight(callback, initialValue:="__NULL__") {
 
-		arrLen := this.Length()
+		len := this.Count()
 
 		; initialValue not defined
 		if (initialValue == "__NULL__") {
 
-			if (arrLen < 1) {
+			if (len < 1) {
 				; Empty array with no intial value
 				return
 			}
-			else if (arrLen == 1) {
+			else if (len == 1) {
 				; Single item array with no initial value
 				return this[1]
 			}
 
 			; Starting value is last element
-			initialValue := this[arrLen]
+			initialValue := this[len]
 
 			; Loop n-1 times (starting at n-1 element)
-			iterations := arrLen - 1 
+			iterations := len - 1 
 			
 			; Set index A_Index-1 each iteration
 			idxOffset := 0
@@ -279,12 +279,12 @@ class _Array {
 		} else {
 		; initialValue defined
 
-			if (arrLen == 0)
+			if (len == 0)
 				; Empty array with initial value
 				return initialValue
 
 			; Loop n times (start at n element)
-			iterations := arrLen
+			iterations := len
 
 			; Set index A_Index each iteration
 			idxOffset := 1
@@ -295,7 +295,7 @@ class _Array {
 		; and start at arrays last index.
 		Loop, % iterations
 		{
-			adjIndex := arrLen - (A_Index - idxOffset)
+			adjIndex := len - (A_Index - idxOffset)
 			initialValue := callback.Call(initialValue, this[adjIndex], adjIndex, this)
 		}
 
@@ -306,12 +306,12 @@ class _Array {
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse
 	reverse() {
 
-		arrLen := this.Length()
+		len := this.Count()
 
-		Loop, % (arrLen // 2)
+		Loop, % (len // 2)
 		{
 			idxFront := A_Index
-			idxBack := arrLen - (A_Index - 1)
+			idxBack := len - (A_Index - 1)
 
 			tmp := this[idxFront]
 			this[idxFront] := this[idxBack]
@@ -332,7 +332,7 @@ class _Array {
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
 	slice(start:=0, end:=0) {
 
-		len := this.Length()
+		len := this.Count()
 
 		; START: Adjust 1 based index, check signage, set defaults
 		if (start > 0)
@@ -348,7 +348,7 @@ class _Array {
 		if (end > 0)
 			last := end - 1
 		else if (end < 0)
-			last := len + end + 1 ; Count backwards from end
+			last := len + end ; Count backwards from end
 		else
 			last := len
 
@@ -386,19 +386,19 @@ class _Array {
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
 	splice(start, deleteCount:=-1, args*) {
 
-		arrLen := this.Length()
+		len := this.Count()
 		exiting := []
 
 		; Determine starting index
-		if (start > arrLen)
-			start := arrLen
+		if (start > len)
+			start := len
 
 		if (start < 0)
-			start := arrLen + start
+			start := len + start
 
 		; deleteCount unspecified or out of bounds, set count to start through end
-		if ((deleteCount < 0) || (arrLen <= (start + deleteCount))) {
-			deleteCount := arrLen - start + 1
+		if ((deleteCount < 0) || (len <= (start + deleteCount))) {
+			deleteCount := len - start + 1
 		}
 
 		; Remove elements
@@ -409,7 +409,7 @@ class _Array {
 		}
 
 		; Inject elements
-		Loop, % args.Length()
+		Loop, % args.Count()
 		{
 			curIndex := start + (A_Index - 1)
 
@@ -426,7 +426,7 @@ class _Array {
 		str := "["
 
 		for i,v in this
-			str .= v (i < this.Length() ? ", " : "")
+			str .= v (i < this.Count() ? ", " : "")
 		
 		return str "]"
 	}
@@ -438,7 +438,7 @@ class _Array {
 		for index, value in args
 			this.InsertAt(A_Index, value)
 
-		return this.Length()
+		return this.Count()
 	}
 
 	; Simple swap
@@ -457,7 +457,7 @@ class _Array {
 	}
 
 	_sort(array, compare_fn, left, right) {
-		if (array.Length() > 1) {
+		if (array.Count() > 1) {
 			centerIdx := this._partition(array, compare_fn, left, right)
 			if (left < centerIdx - 1) {
 				this._sort(array, compare_fn, left, centerIdx - 1)
@@ -502,16 +502,16 @@ class _Array {
 	;
 	; To expose left/right: Call(array, compare_fn:=0, left:=0, right:=0), but
 	; this would require passing a falsey value to compare_fn when only 
-	; positioning needs altering: Call(myArr, <false/0/"">, 2, myArr.Length())
+	; positioning needs altering: Call(myArr, <false/0/"">, 2, myArr.Count())
 	_Call(array, compare_fn:=0) {
 		; Default comparator
-		if not (compare_fn) {
+		if !(compare_fn) {
 			compare_fn := objBindMethod(this, "_compare_alphanum")
 		}
 
 		; Default start/end index
 		left := left ? left : 1
-		right := right ? right : array.Length()
+		right := right ? right : array.Count()
 
 		; Perform in-place sort
 		this._sort(array, compare_fn, left, right)
