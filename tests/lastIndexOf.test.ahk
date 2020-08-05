@@ -1,16 +1,16 @@
-group := tester.newGroup("lastIndexOf(searchElement, fromIndex:=0)")
+assert.label("lastIndexOf")
 
 array := ["a", "b", "c", "d", "d", "d", "e", "e", "f"]
 
 
-group.newTest("Get matching last index"
-	, Assert.equal(6, array.lastIndexOf("d")))
+assert.label("lastIndexOf - Get matching last index")
+assert.test(array.lastIndexOf("d"), 6)
 
-group.newTest("Get matching last index with bad starting index"
-	, Assert.equal(-1, array.lastIndexOf("d", 999)))
+assert.label("lastIndexOf - Get matching last index with bad starting index")
+assert.test(array.lastIndexOf("d", 999), -1)
 
-group.newTest("Get matching last index with positive starting index"
-	, Assert.equal(6, array.lastIndexOf("d", 3)))
+assert.label("lastIndexOf - Get matching last index with positive starting index")
+assert.test(array.lastIndexOf("d", 3), 6)
 
-group.newTest("Get matching last index with negative starting index"
-	, Assert.equal(6, array.lastIndexOf("d", -5)))
+assert.label("lastIndexOf - Get matching last index with negative starting index")
+assert.test(array.lastIndexOf("d", -5), 6)

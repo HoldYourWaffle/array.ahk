@@ -1,13 +1,37 @@
-group := tester.newGroup("some(callback)")
+assert.label("some")
 
 array := [1,2,3,4,5]
 
 
-group.newTest("Detect one even number"
-	, Assert.true(array.some(objBindMethod(Assert, "isEven"))))
+assert.label("some - Detect one even number")
+assert.true(array.some(func("fn_someIsOdd")))
 
-group.newTest("Detect one odd number"
-	, Assert.true(array.some(objBindMethod(Assert, "isOdd"))))
+fn_someIsEven(o)
+{
+	if (mod(o, 2) = 0) {
+		return true
+	}
+	return false
+}
 
-group.newTest("Fails to find large enough number"
-	, Assert.true(array.some(objBindMethod(Assert, "greaterThan", 6))))
+assert.label("some - Detect one odd number")
+assert.true(array.some(func("fn_someIsOdd")))
+
+fn_someIsOdd(o)
+{
+	if (mod(o, 2) = 0) {
+		return false
+	}
+	return true
+}
+
+assert.label("some - Fails to find large enough number")
+assert.false(array.some(func("fn_someGreaterThan")))
+
+fn_someGreaterThan(o)
+{
+	if (o > 6) {
+		return true
+	}
+	return false
+}

@@ -1,16 +1,16 @@
-group := tester.newGroup("includes(searchElement, fromIndex:=0)")
+assert.label("includes")
 
 array := [1,2,3,4,5]
 
 
-group.newTest("No args"
-	, Assert.true(array.includes(3)))
+assert.label("includes - No args")
+assert.true(array.includes(3))
 
-group.newTest("Positive fromIndex"
-	, Assert.true(array.includes(3, 2)))
+assert.label("includes - Positive fromIndex")
+assert.true(array.includes(3, 2))
 
-group.newTest("Negative fromIndex"
-	, Assert.true(array.includes(3, -4)))
+assert.label("includes - Negative fromIndex")
+assert.true(array.includes(3, -4))
 
-group.newTest("Negative fromIndex"
-	, Assert.false(array.includes(3, -1)))
+assert.label("includes - Negative fromIndex")
+assert.false(array.includes(3, -1))

@@ -1,18 +1,28 @@
-group := tester.newGroup("every(callback)")
-
+assert.label("every")
 array_even := [2,4,6]
-array_odd := [1,2,4,6]
+array_odd := [1,3,5,7]
 
-compare_obj := new ConditionalCompare(false)
-isEvenCond_fn := objBindMethod(compare_obj, "isEvenConditional")
+assert.label("every - Function object")
+assert.true(array_even.every(func("fn_everyIsEven")))
+assert.false(array_odd.every(func("fn_everyIsEven")))
 
+fn_everyIsEven(o)
+{
+	if (mod(o, 2) = 0) {
+		return true
+	}
+	return false
+}
 
-group.newTest("Function object"
-	, Assert.true(array_even.every(func("isEven"))))
+assert.label("every - Function object every odd")
+assert.true(array_odd.every(func("fn_everyIsOdd")))
 
-group.newTest("Bound function object"
-	, Assert.false(array_odd.every(isEvenCond_fn)))
+fn_everyIsOdd(o)
+{
+	if (mod(o, 2) = 0) {
+		return false
+	}
+	return true
+}
 
-compare_obj.setAllTrue(true)
-group.newTest("Bound function object #2"
-	, Assert.true(array_odd.every(isEvenCond_fn)))
+assert.label("every - Bound function object")

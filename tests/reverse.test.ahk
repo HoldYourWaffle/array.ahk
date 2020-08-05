@@ -1,8 +1,8 @@
-group := tester.newGroup("reverse(array)")
+assert.label("reverse")
 
 
-group.newTest("Reverse even sized int array"
-	, Assert.arrayEqual([5,6,4,3,2,1], [1,2,3,4,6,5].reverse()))
+assert.label("reverse - Reverse even sized int array")
+assert.test([1,2,3,4,6,5].reverse(), [5,6,4,3,2,1])
 
-group.newTest("Reverse odd sized int array"
-	, Assert.arrayEqual([5,4,3,2,1], [1,2,3,4,5].reverse()))
+assert.label("reverse - Reverse odd sized int array")
+assert.test([1,2,3,4,5].reverse(), [5,4,3,2,1])

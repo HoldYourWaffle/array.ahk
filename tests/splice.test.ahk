@@ -1,61 +1,56 @@
-group := tester.newGroup("splice(start, deleteCount:=-1, args*)")
+assert.label("splice")
 
 
 ; test subgroup 1
-desc := "Starting position only"
 array := ["a","b","c","d","e","f"]
 spliced := array.splice(3)
 
-group.newTest(desc ": array"
-	, Assert.arrayEqual(["a","b"], array))
+assert.label("splice - array")
+assert.test(array, ["a","b"])
 
-group.newTest(desc ": spliced"
-	, Assert.arrayEqual(["c","d","e","f"], spliced))
+assert.label("splice - Starting position only")
+assert.test(spliced, ["c","d","e","f"])
 
 
 ; test subgroup 2
-desc := "Starting position with delete"
 array := ["a","b","c","d","e","f"]
 spliced := array.splice(3, 2)
 
-group.newTest(desc ": array"
-	, Assert.arrayEqual(["a","b","e","f"], array))
+assert.label("splice - array")
+assert.test(array, ["a","b","e","f"])
 
-group.newTest(desc ": spliced"
-	, Assert.arrayEqual(["c","d"], spliced))
+assert.label("splice - Starting position with delete")
+assert.test(spliced, ["c","d"])
 
 
 ; test subgroup 3
-desc := "Starting position no delete"
 array := ["a","b","c","d","e","f"]
 spliced := array.splice(3, 0)
 
-group.newTest(desc ": array"
-	, Assert.arrayEqual(["a","b","c","d","e","f"], array))
+assert.label("splice - array")
+assert.test(array, ["a","b","c","d","e","f"])
 
-group.newTest(desc ": spliced"
-	, Assert.arrayEqual([], spliced))
+assert.label("splice - Starting position no delete")
+assert.test(spliced, [])
 
 
 ; test subgroup 4
-desc := "Starting position with delete and args"
 array := ["a","b","c","d","e","f"]
 spliced := array.splice(3, 2, "g", "h")
 
-group.newTest(desc ": array"
-	, Assert.arrayEqual(["a","b","g","h","e","f"], array))
+assert.label("splice - array")
+assert.test(array, ["a","b","g","h","e","f"])
 
-group.newTest(desc ": spliced"
-	, Assert.arrayEqual(["c","d"], spliced))
+assert.label("splice - Starting position with delete and args")
+assert.test(spliced, ["c","d"])
 
 
 ; test subgroup 5
-desc := "Starting position no delete and args"
 array := ["a","b","c","d","e","f"]
 spliced := array.splice(3, 0, "g", "h")
 
-group.newTest(desc ": array"
-	, Assert.arrayEqual(["a","b","g","h","c","d","e","f"], array))
+assert.label("splice - array")
+assert.test(array, ["a","b","g","h","c","d","e","f"])
 
-group.newTest(desc ": spliced"
-	, Assert.arrayEqual([], spliced))
+assert.label("splice - Starting position no delete and args")
+assert.test(spliced, [])

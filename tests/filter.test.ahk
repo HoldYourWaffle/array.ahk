@@ -1,11 +1,22 @@
-group := tester.newGroup("filter(callback)")
+assert.label("filter")
 
 array := [1,2,3,4,5,6]
 
+assert.label("Collect even numbers")
+assert.test(array.filter(func("fn_filterIsEven")), [2,4,6])
+assert.label("Collect odd numbers")
+assert.test(array.filter(func("fn_filterIsOdd")), [1,3,5])
 
-group.newTest("Collect even numbers"
-	, Assert.arrayEqual([2,4,6], array.filter(objBindMethod(Assert, "isEven"))))
+fn_filterIsEven(o) {
+	if (mod(o, 2) = 0) {
+		return true
+	}
+	return false
+}
 
-
-group.newTest("Collect odd numbers"
-	, Assert.arrayEqual([1,3,5], array.filter(objBindMethod(Assert, "isOdd"))))
+fn_filterIsOdd(o) {
+	if (mod(o, 2) = 0) {
+		return false
+	}
+	return true
+}

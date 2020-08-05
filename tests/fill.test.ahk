@@ -1,24 +1,22 @@
-group := tester.newGroup("fill(value, start:=0, end:=0)")
-
+group.label("fill")
 array := [0,0,0,0]
 
-
+group.label("No args")
 array.fill(1)
-group.newTest("No args"
-	, Assert.arrayEqual([1, 1, 1, 1], array))
+assert.test([1, 1, 1, 1], array)
 
+group.label("Positive start")
 array.fill(5, 2)
-group.newTest("Positive start"
-	, Assert.arrayEqual([1, 5, 5, 5], array))
+assert.test([1, 5, 5, 5], array)
 
+group.label("Positive start & end")
 array.fill("A", 1, 2)
-group.newTest("Positive start & end"
-	, Assert.arrayEqual(["A", "A", 5, 5], array))
+assert.test(["A", "A", 5, 5], array)
 
+group.label("Negative start")
 array.fill(":D", -2)
-group.newTest("Negative start"
-	, Assert.arrayEqual(["A", "A", ":D", ":D"], array))
+assert.test(["A", "A", ":D", ":D"], array)
 
+group.label("Negative start & end")
 array.fill(1, -4, -2)
-group.newTest("Negative start & end"
-	, Assert.arrayEqual([1, 1, ":D", ":D"], array))
+assert.test([1, 1, ":D", ":D"], array)
