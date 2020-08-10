@@ -1,6 +1,6 @@
 {
 	"name": "array.ahk",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"description": "Conversion of JavaScript's Array methods to AutoHotkey",
 	"main": "export.ahk",
 	"repository": {
@@ -26,7 +26,7 @@
 	"bugs": {
 		"url": "https://github.com/Chunjee/array.ahk"
 	},
-	"homepage": "https://github.com/Chunjee/array.ahk",
+	"homepage": "https://chunjee.github.io/array.ahk",
 	"keywords": [
 		"autohotkey",
 		"ahk",
