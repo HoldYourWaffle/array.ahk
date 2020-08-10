@@ -23,3 +23,6 @@ assert.test(array.slice(2, -2), [2,3])
 
 assert.label("slice - Negative start & positive end")
 assert.test(array.slice(-4, 3), [2])
+
+assert.label("slice - Empty array")
+assert.test([].slice(), "")

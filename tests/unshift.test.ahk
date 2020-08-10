@@ -10,9 +10,11 @@ assert.label("unshift - blank array with no arguments")
 assert.test([].unshift(), 0)
 
 assert.label("unshift - No arguments")
-
-assert.test(arr, [])
 arr := []
+assert.test(arr, [])
 arr.unshift()
 arr.unshift(1)
 assert.test(arr, [1])
+
+assert.label("unshift - No arguments")
+assert.test([].unshift(), 0)

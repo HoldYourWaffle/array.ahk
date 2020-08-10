@@ -8,7 +8,9 @@
 		"url": "git+https://github.com/Chunjee/array.ahk.git"
 	},
 	"dependencies": { },
-	"devDependencies": { },
+	"devDependencies": {
+		"unit-testing.ahk": "^0.3.3"
+	},
 	"author": "Shawn Brooker",
 	"contributors": [
 		{

@@ -53,4 +53,4 @@ assert.label("splice - array")
 assert.test(array, ["a","b","g","h","c","d","e","f"])
 
 assert.label("splice - Starting position no delete and args")
-assert.test(spliced, [])
+assert.test(array.splice(3, 0, "test"), [])

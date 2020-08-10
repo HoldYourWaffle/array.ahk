@@ -19,18 +19,18 @@ assert := new unittesting()
 #Include %A_ScriptDir%\reduce.test.ahk
 #Include %A_ScriptDir%\reduceRight.test.ahk
 #Include %A_ScriptDir%\reverse.test.ahk
+#Include %A_ScriptDir%\shift.test.ahk
 #Include %A_ScriptDir%\slice.test.ahk
 #Include %A_ScriptDir%\some.test.ahk
 #Include %A_ScriptDir%\sort.test.ahk
 #Include %A_ScriptDir%\splice.test.ahk
-#Include %A_ScriptDir%\shift.test.ahk
+#Include %A_ScriptDir%\toString.test.ahk
 #Include %A_ScriptDir%\unshift.test.ahk
 
 assert.fullReport()
 
 #Include %A_ScriptDir%\..\node_modules
 #Include unit-testing.ahk\export.ahk
-; #Include print.ahk
 
 ExitApp
 
