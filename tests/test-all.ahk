@@ -10,7 +10,9 @@ assert := new unittesting()
 #Include %A_ScriptDir%\filter.test.ahk
 #Include %A_ScriptDir%\find.test.ahk
 #Include %A_ScriptDir%\findIndex.test.ahk
+#Include %A_ScriptDir%\forEach.test.ahk
 #Include %A_ScriptDir%\includes.test.ahk
+#Include %A_ScriptDir%\indexOf.test.ahk
 #Include %A_ScriptDir%\join.test.ahk
 #Include %A_ScriptDir%\lastIndexOf.test.ahk
 #Include %A_ScriptDir%\map.test.ahk
@@ -21,13 +23,14 @@ assert := new unittesting()
 #Include %A_ScriptDir%\some.test.ahk
 #Include %A_ScriptDir%\sort.test.ahk
 #Include %A_ScriptDir%\splice.test.ahk
+#Include %A_ScriptDir%\shift.test.ahk
 #Include %A_ScriptDir%\unshift.test.ahk
 
 assert.fullReport()
 
 #Include %A_ScriptDir%\..\node_modules
 #Include unit-testing.ahk\export.ahk
-#Include print.ahk
+; #Include print.ahk
 
 ExitApp
 
