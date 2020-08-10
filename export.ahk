@@ -113,7 +113,7 @@ class _Array {
 		for index, element in this
 			callback.Call(element, index, this)
 
-		return 0
+		return ""
 	}
 
 
@@ -357,7 +357,9 @@ class _Array {
 
 		loop, % last - begin
 			results.push(this[begin + A_Index])
-
+		if (results.Count() == 0) {
+			return ""
+		}
 		return results
 	}
 
@@ -423,12 +425,12 @@ class _Array {
 
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString
 	toString() {
-		str := "["
+		str := ""
 
 		for i,v in this
-			str .= v (i < this.Count() ? ", " : "")
+			str .= v (i < this.Count() ? "," : "")
 		
-		return str "]"
+		return str
 	}
 
 
