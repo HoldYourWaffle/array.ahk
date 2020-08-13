@@ -1,9 +1,9 @@
 # array.ahk
-## Conversion of JavaScript's Array methods to AutoHotKey
+## Conversion of JavaScript's Array methods to AutoHotkey
 
 Long-form README and documentation: https://chunjee.github.io/array.ahk
 
-AutoHotKey lacks built-in iteration helper methods (as of 1.1.33) to perform many of the common array behaviors found in other languages. This package ports most of JavaScript's Array object methods to AutoHotKey's Array object.
+AutoHotkey lacks built-in iteration helper methods (as of 1.1.33) to perform many of the common array behaviors found in other languages. This package ports most of JavaScript's Array object methods to AutoHotkey's Array object.
 
 ### Ported Methods
 * concat
@@ -51,7 +51,7 @@ msgbox, % [1,2,3].join()
 
 ### Usage
 
-Usage: `Array.<fn>([params*])`
+`Array.<fn>([params*])`
 ```autohotkey
 ; Map to doubled value
 arrayInt := [1, 5, 10]
@@ -64,6 +64,7 @@ double_int(int) {
 
 
 ; Map to object property
+arrayObj := [{"name": "bob", "age": 22}, {"name": "tom", "age": 51}]
 arrayObj.map(func("get_name")) 
 ; => ["bob", "tom"]
 
