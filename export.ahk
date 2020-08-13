@@ -21,10 +21,15 @@ class _Array {
 			results.push(value)
 
 		; Second, add arrays given in parameter
-		for index, array in arrays
-			for index, element in array
-				results.push(element)
-
+		for index, array in arrays {
+			if (IsObject(array)) {
+				for index, element in array {
+					results.push(element)
+				}
+			} else {
+				results.push(array)
+			}
+		}
 		return results
 	}
 
