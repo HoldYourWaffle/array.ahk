@@ -14,8 +14,11 @@ assert := new unittesting()
 #Include %A_ScriptDir%\includes.test.ahk
 #Include %A_ScriptDir%\indexOf.test.ahk
 #Include %A_ScriptDir%\join.test.ahk
+#Include %A_ScriptDir%\keys.test.ahk
 #Include %A_ScriptDir%\lastIndexOf.test.ahk
 #Include %A_ScriptDir%\map.test.ahk
+#Include %A_ScriptDir%\pop.test.ahk
+#Include %A_ScriptDir%\push.test.ahk
 #Include %A_ScriptDir%\reduce.test.ahk
 #Include %A_ScriptDir%\reduceRight.test.ahk
 #Include %A_ScriptDir%\reverse.test.ahk
