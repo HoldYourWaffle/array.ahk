@@ -161,6 +161,17 @@ class _Array {
 		return result
 	}
 
+
+	keys() {
+		
+		result := []
+
+		for key, value in this {
+			result.push(key)
+		}
+		return result
+	}
+
 	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf
 	; "if the provided index is negative, the array is still searched from front to back"
 	;   - Are we not able to return the first found starting from the back?
