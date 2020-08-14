@@ -459,6 +459,17 @@ class _Array {
 		return this.Count()
 	}
 
+
+	values() {
+		
+		result := []
+
+		for key, value in this {
+			result.push(value)
+		}
+		return result
+	}
+
 	; Simple swap
 	swap(index1, index2) {
 		tmp := this[index1]

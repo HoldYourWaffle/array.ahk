@@ -29,6 +29,7 @@ assert := new unittesting()
 #Include %A_ScriptDir%\splice.test.ahk
 #Include %A_ScriptDir%\toString.test.ahk
 #Include %A_ScriptDir%\unshift.test.ahk
+#Include %A_ScriptDir%\values.test.ahk
 
 assert.fullReport()
 
