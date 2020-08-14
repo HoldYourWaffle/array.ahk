@@ -22,7 +22,7 @@ assert.label("reduceRight - Sum a property of all objects")
 assert.equal(complex_array.reduceRight(func("objProp_addition").bind("age"), 0), 143)
 
 assert.label("reduceRight - Copy a string property of all objects into an array")
-assert.arrayEqual(complex_array.reduceRight(func("objProp_arrayPush").bind("name"), []), names)
+assert.test(complex_array.reduceRight(func("objProp_arrayPush").bind("name"), []), names)
 
 assert.label("reduceRight - Concat nested arrays")
-assert.arrayEqual(nested_arrays.reduceRight(func("reduce_nestedArray")), [4, 5, 3, 4, 1, 2])
+assert.test(nested_arrays.reduceRight(func("reduce_nestedArray")), [4, 5, 3, 4, 1, 2])

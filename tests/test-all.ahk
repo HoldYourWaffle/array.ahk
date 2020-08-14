@@ -85,7 +85,7 @@ objProp_get(key, obj, prms*) {
 }
 
 reduce_nestedArray(previousValue, currentValue) {
-	 return previousValue.concat(currentValue)
+	return previousValue.concat(currentValue)
 }
 
 
