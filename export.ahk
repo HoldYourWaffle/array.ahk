@@ -448,15 +448,7 @@ class _Array {
 	}
 
 
-	; Simple swap
-	swap(index1, index2) {
-		tmp := this[index1]
-		this[index1] := this[index2]
-		this[index2] := tmp
-	}
-
-
-	; internal sorting
+	; Internal functions
 	_compare_alphanum(a, b) {
 		return a > b ? 1 : a < b ? -1 : 0
 	}

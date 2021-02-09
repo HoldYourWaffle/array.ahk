@@ -7,7 +7,7 @@
 		"type": "git",
 		"url": "git+https://github.com/Chunjee/array.ahk.git"
 	},
-	"dependencies": { },
+	"dependencies": {},
 	"devDependencies": {
 		"unit-testing.ahk": "^0.3.3"
 	},
