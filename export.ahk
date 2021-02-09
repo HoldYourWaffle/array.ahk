@@ -11,9 +11,8 @@ Array(prms*) {
 ; Define the base class.
 class _Array {
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
 	concat(arrays*) {
-		
+
 		results := []
 
 		; First add the values from the instance being called on
@@ -34,7 +33,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/every
 	every(callback) {
 
 		for index, element in this
@@ -45,7 +43,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill
 	fill(value, start:=0, end:=0) {
 
 		len := this.Count()
@@ -75,9 +72,8 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
 	filter(callback) {
-		
+
 		results := []
 
 		for index, element in this
@@ -88,10 +84,9 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find
 	; Modified to return "" instead of 'undefined'
 	find(callback) {
-		
+
 		for index, element in this
 			if (callback.Call(element, index, this))
 				return element
@@ -100,7 +95,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
 	findIndex(callback) {
 
 		for index, value in this
@@ -112,7 +106,6 @@ class _Array {
 
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
 	forEach(callback) {
 
 		for index, element in this
@@ -122,16 +115,14 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
 	includes(searchElement, fromIndex:=0) {
 
 		return this.indexOf(searchElement, fromIndex) > 0 ? true : false
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf
 	indexOf(searchElement, fromIndex:=0) {
-		
+
 		len := this.Count()
 
 		if (fromIndex > 0)
@@ -150,11 +141,10 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join
 	join(delim:=",") {
-		
+
 		result := ""
-		
+
 		for index, element in this
 			result .= element (index < this.Count() ? delim : "")
 
@@ -163,7 +153,7 @@ class _Array {
 
 
 	keys() {
-		
+
 		result := []
 
 		for key, value in this {
@@ -172,11 +162,11 @@ class _Array {
 		return result
 	}
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf
-	; "if the provided index is negative, the array is still searched from front to back"
-	;   - Are we not able to return the first found starting from the back?
+
+	; if the provided index is negative, the array is still searched from front to back
+	; - Are we not able to return the first found starting from the back?
 	lastIndexOf(searchElement, fromIndex:=0) {
-		
+
 		len := this.Count()
 		foundIdx := -1
 
@@ -198,7 +188,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
 	map(callback) {
 
 		results := []
@@ -210,8 +199,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
-	; -->[A,B,C,D,E,F]
 	reduce(callback, initialValue:="__NULL__") {
 
 		len := this.Count()
@@ -232,7 +219,7 @@ class _Array {
 			initialValue := this[1]
 
 			; Loop n-1 times (start at 2nd element)
-			iterations := len - 1 
+			iterations := len - 1
 
 			; Set index A_Index+1 each iteration
 			idxOffset := 1
@@ -260,13 +247,11 @@ class _Array {
 			adjIndex := A_Index + idxOffset
 			initialValue := callback.Call(initialValue, this[adjIndex], adjIndex, this)
 		}
-		
+
 		return initialValue
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduceRight
-	; [A,B,C,D,E,F]<--
 	reduceRight(callback, initialValue:="__NULL__") {
 
 		len := this.Count()
@@ -287,8 +272,8 @@ class _Array {
 			initialValue := this[len]
 
 			; Loop n-1 times (starting at n-1 element)
-			iterations := len - 1 
-			
+			iterations := len - 1
+
 			; Set index A_Index-1 each iteration
 			idxOffset := 0
 
@@ -319,7 +304,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse
 	reverse() {
 
 		len := this.Count()
@@ -338,14 +322,12 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/shift
 	shift() {
 
 		return this.RemoveAt(1)
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
 	slice(start:=0, end:=0) {
 
 		len := this.Count()
@@ -380,7 +362,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
 	some(callback) {
 
 		for index, value in this
@@ -391,7 +372,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 	sort(compare_fn:=0) {
 
 		; Quicksort
@@ -401,7 +381,6 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
 	splice(start, deleteCount:=-1, args*) {
 
 		len := this.Count()
@@ -439,18 +418,16 @@ class _Array {
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/toString
 	toString() {
 		str := ""
 
 		for i,v in this
 			str .= v (i < this.Count() ? "," : "")
-		
+
 		return str
 	}
 
 
-	; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift
 	unshift(args*) {
 
 		for index, value in args
@@ -461,7 +438,7 @@ class _Array {
 
 
 	values() {
-		
+
 		result := []
 
 		for key, value in this {
@@ -469,6 +446,7 @@ class _Array {
 		}
 		return result
 	}
+
 
 	; Simple swap
 	swap(index1, index2) {
@@ -478,12 +456,11 @@ class _Array {
 	}
 
 
-
-
 	; internal sorting
 	_compare_alphanum(a, b) {
 		return a > b ? 1 : a < b ? -1 : 0
 	}
+
 
 	_sort(array, compare_fn, left, right) {
 		if (array.Count() > 1) {
@@ -496,6 +473,7 @@ class _Array {
 			}
 		}
 	}
+
 
 	_partition(array, compare_fn, left, right) {
 		pivot := array[floor(left + (right - left) / 2)]
@@ -519,6 +497,7 @@ class _Array {
 		return i
 	}
 
+
 	_swap(array, idx1, idx2) {
 		tmp := array[idx1]
 		array[idx1] := array[idx2]
@@ -526,11 +505,11 @@ class _Array {
 	}
 
 
-	; Left/Right remain from a standard implementation, but the adaption is 
+	; Left/Right remain from a standard implementation, but the adaption is
 	; ported from JS which doesn't expose these parameters.
 	;
 	; To expose left/right: Call(array, compare_fn:=0, left:=0, right:=0), but
-	; this would require passing a falsey value to compare_fn when only 
+	; this would require passing a falsey value to compare_fn when only
 	; positioning needs altering: Call(myArr, <false/0/"">, 2, myArr.Count())
 	_Call(array, compare_fn:=0) {
 		; Default comparator
