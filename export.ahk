@@ -49,9 +49,9 @@ class _Array {
 
 		; START: Adjust 1 based index, check signage, set defaults
 		if (start > 0)
-			begin := start - 1    ; Include starting index going forward
+			begin := start - 1 ; Include starting index going forward
 		else if (start < 0)
-			begin := len + start  ; Count backwards from end
+			begin := len + start ; Count backwards from end
 		else
 			begin := start
 
@@ -60,7 +60,7 @@ class _Array {
 		if (end > 0)
 			last := end
 		else if (end < 0)
-			last := len + end   ; Count backwards from end
+			last := len + end ; Count backwards from end
 		else
 			last := len
 
@@ -126,9 +126,9 @@ class _Array {
 		len := this.Count()
 
 		if (fromIndex > 0)
-			start := fromIndex - 1    ; Include starting index going forward
+			start := fromIndex - 1 ; Include starting index going forward
 		else if (fromIndex < 0)
-			start := len + fromIndex  ; Count backwards from end
+			start := len + fromIndex ; Count backwards from end
 		else
 			start := fromIndex
 
@@ -174,9 +174,9 @@ class _Array {
 			return foundIdx
 
 		if (fromIndex > 0)
-			start := fromIndex - 1    ; Include starting index going forward
+			start := fromIndex - 1 ; Include starting index going forward
 		else if (fromIndex < 0)
-			start := len + fromIndex  ; Count backwards from end
+			start := len + fromIndex ; Count backwards from end
 		else
 			start := fromIndex
 
@@ -334,9 +334,9 @@ class _Array {
 
 		; START: Adjust 1 based index, check signage, set defaults
 		if (start > 0)
-			begin := start - 1    ; Include starting index going forward
+			begin := start - 1 ; Include starting index going forward
 		else if (start < 0)
-			begin := len + start  ; Count backwards from end
+			begin := len + start ; Count backwards from end
 		else
 			begin := start
 
@@ -525,6 +525,6 @@ class _Array {
 		if (method = "")
 			return this._Call(args*)
 		if (IsObject(method))
-		   return this._Call(method, args*)
+			return this._Call(method, args*)
 	}
 }
