@@ -1,7 +1,7 @@
 # array.ahk
 Conversion of JavaScript's Array methods to AutoHotkey
 
-![https://www.npmjs.com/package/array.ahk](https://img.shields.io/npm/dm/array.ahk?style=for-the-badge&logo=npm) [![docs](https://img.shields.io/badge/full-documentation-blue?style=for-the-badge)](https://chunjee.github.io/array.ahk)
+[![npm](https://img.shields.io/npm/dm/array.ahk?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/array.ahk) [![docs](https://img.shields.io/badge/full-documentation-blue?style=for-the-badge)](https://chunjee.github.io/array.ahk)
 
 
 AutoHotkey lacks built-in iteration helper methods (as of 1.1.33) to perform many of the common array behaviors found in other languages. This package ports most of JavaScript's Array object methods to AutoHotkey's Array object.
