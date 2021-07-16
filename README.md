@@ -30,7 +30,7 @@ AutoHotkey lacks built-in iteration helper methods (as of 1.1.33) to perform man
 * toString
 * unshift
 
-### Installation
+## Installation
 
 In a terminal or command line navigated to your project folder:
 
@@ -39,9 +39,7 @@ npm install array.ahk
 ```
 You may also review or copy the library from [./export.ahk on GitHub](https://raw.githubusercontent.com/chunjee/array.ahk/master/export.ahk)
 
-
-In your code:
-
+In your code only export.ahk needs to be included:
 ```autohotkey
 #Include %A_ScriptDir%\node_modules
 #Include array.ahk\export.ahk
@@ -50,7 +48,10 @@ msgbox, % [1,2,3].join()
 ; => "1,2,3"
 ```
 
-### Usage
+You may also review or copy the library from [./export.ahk on GitHub](https://raw.githubusercontent.com/chunjee/array.ahk/master/export.ahk); #Incude as you would normally when manually downloading.
+
+## API
+The package modifies the Array object when #Included near the top of your script.
 
 `Array.<fn>([params*])`
 ```autohotkey
