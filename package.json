@@ -1,6 +1,6 @@
 {
 	"name": "array.ahk",
-	"version": "0.1.8",
+	"version": "0.1.9",
 	"description": "Conversion of JavaScript's Array methods to AutoHotkey",
 	"main": "export.ahk",
 	"repository": {
