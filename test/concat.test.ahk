@@ -25,3 +25,19 @@ assert.test(["Bill"].concat("Ted"), ["Bill", "Ted"])
 
 assert.label("concat - plain values and arrays")
 assert.test([].concat(["Bill", "Ted"], "Socrates", ["Lincoln", "Joan of Arc"]), ["Bill", "Ted", "Socrates", "Lincoln", "Joan of Arc"])
+
+; sparse arrays / associative objects
+arr := []
+arr[1] := ""
+arr[2] := "Bill"
+arr[3] := "Ted"
+
+arr2 := []
+arr2[1] := ""
+arr2[2] := "Socrates"
+arr2[3] := "Lincoln"
+
+assert.label("concat - sparse array")
+assert.test([].concat(arr), ["", "Bill", "Ted"])
+assert.test(arr.concat("Socrates"), ["", "Bill", "Ted", "Socrates"])
+assert.test(arr.concat(arr2), ["", "Bill", "Ted", "", "Socrates", "Lincoln"])
