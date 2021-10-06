@@ -13,23 +13,22 @@ class _Array {
 
 	concat(arrays*) {
 
-		results := []
+		result := []
 
 		; First add the values from the instance being called on
-		for index, value in this
-			results.push(value)
+		result := this.Clone()
 
 		; Second, add arrays given in parameter
-		for index, array in arrays {
+		for key, array in arrays {
 			if (IsObject(array)) {
-				for index, element in array {
-					results.push(element)
+				for key2, element in array {
+					result.push(element)
 				}
 			} else {
-				results.push(array)
+				result.push(array)
 			}
 		}
-		return results
+		return result
 	}
 
 
@@ -74,13 +73,13 @@ class _Array {
 
 	filter(callback) {
 
-		results := []
+		result := []
 
 		for index, element in this
 			if (callback.Call(element, index, this))
-				results.push(element)
+				result.push(element)
 
-		return results
+		return result
 	}
 
 
@@ -190,12 +189,12 @@ class _Array {
 
 	map(callback) {
 
-		results := []
+		result := []
 
 		for index, element in this
-			results.push(callback.Call(element, index, this))
+			result.push(callback.Call(element, index, this))
 
-		return results
+		return result
 	}
 
 
@@ -351,14 +350,14 @@ class _Array {
 			last := len
 
 
-		results := []
+		result := []
 
 		loop, % last - begin
-			results.push(this[begin + A_Index])
-		if (results.Count() == 0) {
+			result.push(this[begin + A_Index])
+		if (result.Count() == 0) {
 			return ""
 		}
-		return results
+		return result
 	}
 
 
