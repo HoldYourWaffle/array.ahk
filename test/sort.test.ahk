@@ -17,13 +17,13 @@ assert.test(number_array.sort(), [1,2,3,4,5,6,7,8,9,10,11])
 
 ; test group 2: complex arrays (objects)
 complex_array := [{"symbol": "Delta", "morse": "-***"}
-    , {"symbol": "alpha", "morse": "*-"}
-    , {"symbol": "delta", "morse": "-**"}
-    , {"symbol": "Beta", "morse": "-***"}
-    , {"symbol": "Charlie", "morse": "-*-*"}
-    , {"symbol": "beta", "morse": "-***"}
-    , {"symbol": "Alpha", "morse": "*-"}
-    , {"symbol": "charlie", "morse": "-*-*"}]
+	, {"symbol": "alpha", "morse": "*-"}
+	, {"symbol": "delta", "morse": "-**"}
+	, {"symbol": "Beta", "morse": "-***"}
+	, {"symbol": "Charlie", "morse": "-*-*"}
+	, {"symbol": "beta", "morse": "-***"}
+	, {"symbol": "Alpha", "morse": "*-"}
+	, {"symbol": "charlie", "morse": "-*-*"}]
 
 accessor_fn := func("objProp_get").bind("symbol")
 sorting_fn := func("complex_sort").bind(accessor_fn)
@@ -40,7 +40,7 @@ assert.test(complex_array.map(accessor_fn), assert_morse)
 
 assert.label("sort - compareFunction")
 assert.test(folders_array.sort(func("fn_digitSort")), ["Folder 8", "Folder 9", "Folder 10", "Folder 11"])
-
+assert.test([40, 100, 1, 5, 25, 10].sort(func("myFunction")), [1, 5, 10, 25, 40, 100])
 
 ; functions
 fn_digitSort(param1, param2)
@@ -54,4 +54,14 @@ fn_digitSort(param1, param2)
 		return 1
 	}
 	return 0
+}
+
+myFunction(a, b) {
+	if (a == b) {
+		return 0
+	}
+	if (a > b) {
+		return 10
+	}
+	return -1000
 }
