@@ -472,10 +472,10 @@ class _Array {
 		j := right
 
 		while (i <= j) {
-			while (compare_fn.Call(array[i], pivot) = -1) { ;array[i] < pivot
+			while (compare_fn.Call(array[i], pivot) < 0) { ;array[i] < pivot
 				i++
 			}
-			while (compare_fn.Call(array[j], pivot) = 1) { ;array[j] > pivot
+			while (compare_fn.Call(array[j], pivot) > 0) { ;array[j] > pivot
 				j--
 			}
 			if (i <= j) {
@@ -484,7 +484,6 @@ class _Array {
 				j--
 			}
 		}
-
 		return i
 	}
 
