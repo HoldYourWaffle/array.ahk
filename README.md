@@ -1,6 +1,6 @@
 <div align="center">
 	<a href="https://github.com/chunjee/array.ahk">
-		<img alt="array.ahk" src="https://raw.githubusercontent.com/biga-ahk/biga.ahk/8cc466ae8a2764a9cd6f32a99d92f71276fbeee7/header.svg"/>
+		<img alt="array.ahk" src="https://github.com/Chunjee/array.ahk/blob/master/assets/header.svg"/>
 	</a>
 	<br>
 </div>
