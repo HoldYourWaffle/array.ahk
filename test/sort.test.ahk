@@ -14,6 +14,8 @@ assert.test(string_array.sort(), assert_strings)
 assert.label("sort - Number array")
 assert.test(number_array.sort(), [1,2,3,4,5,6,7,8,9,10,11])
 
+assert.label("sort - basic array with blank values")
+assert.test([40, 100, 1, "", "", 5, 25, 10, ""].sort(), [1, 5, 10, 25, 40, 100, "", "", ""])
 
 ; test group 2: complex arrays (objects)
 complex_array := [{"symbol": "Delta", "morse": "-***"}

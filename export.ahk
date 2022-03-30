@@ -449,7 +449,11 @@ class _Array {
 
 	; Internal functions
 	_compare_alphanum(a, b) {
-		return a > b ? 1 : a < b ? -1 : 0
+		; return 0 if a and b are the same
+		; return -1 if b is "" or undefined
+		; return 1 if a is greater than b
+		; return -1 if a is less than b
+		return a == b ? 0 : b == "" ? -1 : a > b ? 1 : a < b ? -1
 	}
 
 
@@ -489,9 +493,9 @@ class _Array {
 
 
 	_swap(array, idx1, idx2) {
-		tmp := array[idx1]
+		tempVar := array[idx1]
 		array[idx1] := array[idx2]
-		array[idx2] := tmp
+		array[idx2] := tempVar
 	}
 
 
