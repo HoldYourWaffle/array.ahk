@@ -1,24 +1,20 @@
 ; Apply "native" support, redefines Array() to add custom _Array base object
-Array(prms*) {
+; Array(prms*) {
 	; Since prms is already an array of the parameters, just give it a
-	; new base object and return it. Using this method, _Array.__New()
+	; new base object and return it. Using array method, _Array.__New()
 	; is not called and any instance variables are not initialized.
-	prms.base := _Array
-	return prms
-}
+	; prms.base := _Array
+	; return prms
+; }
 
 
 ; Define the base class.
-class _Array {
+class Arrays {
 
-	concat(arrays*) {
+	static concat(arrays*) {
 
 		result := []
 
-		; First add the values from the instance being called on
-		result := this.Clone()
-
-		; Second, add arrays given in parameter
 		for key, array in arrays {
 			if (IsObject(array)) {
 				for key2, element in array {
@@ -32,19 +28,19 @@ class _Array {
 	}
 
 
-	every(callback) {
+	static every(array, callback) {
 
-		for index, element in this
-			if !callback.Call(element, index, this)
+		for index, element in array
+			if !callback.Call(element, index, array)
 				return false
 
 		return true
 	}
 
 
-	fill(value, start:=0, end:=0) {
+	static fill(array, value, start:=0, end:=0) {
 
-		len := this.Count()
+		len := array.Length
 
 		; START: Adjust 1 based index, check signage, set defaults
 		if (start > 0)
@@ -64,19 +60,19 @@ class _Array {
 			last := len
 
 
-		loop, % (last - begin)
-			this[begin + A_Index] := value
+		loop (last - begin)
+			array[begin + A_Index] := value
 
-		return this
+		return array
 	}
 
 
-	filter(callback) {
+	static filter(array, callback) {
 
 		result := []
 
-		for index, element in this
-			if (callback.Call(element, index, this))
+		for index, element in array
+			if (callback.Call(element, index, array))
 				result.push(element)
 
 		return result
@@ -84,20 +80,20 @@ class _Array {
 
 
 	; Modified to return "" instead of 'undefined'
-	find(callback) {
+	static find(array, callback) {
 
-		for index, element in this
-			if (callback.Call(element, index, this))
+		for index, element in array
+			if (callback.Call(element, index, array))
 				return element
 
 		return ""
 	}
 
 
-	findIndex(callback) {
+	static findIndex(array, callback) {
 
-		for index, value in this
-			if (callback.Call(value, index, this))
+		for index, value in array
+			if (callback.Call(value, index, array))
 				return index
 
 		return -1
@@ -105,24 +101,22 @@ class _Array {
 
 
 
-	forEach(callback) {
+	static forEach(array, callback) {
 
-		for index, element in this
-			callback.Call(element, index, this)
+		for index, element in array
+			callback.Call(element, index, array)
 
 		return ""
 	}
 
 
-	includes(searchElement, fromIndex:=0) {
-
-		return this.indexOf(searchElement, fromIndex) > 0 ? true : false
+	static includes(array, searchElement, fromIndex:=0) {
+		return Arrays.indexOf(array, searchElement, fromIndex) > 0 ? true : false
 	}
 
 
-	indexOf(searchElement, fromIndex:=0) {
-
-		len := this.Count()
+	static indexOf(array, searchElement, fromIndex:=0) {
+		len := array.Length
 
 		if (fromIndex > 0)
 			start := fromIndex - 1 ; Include starting index going forward
@@ -132,30 +126,30 @@ class _Array {
 			start := fromIndex
 
 
-		loop, % len - start
-			if (this[start + A_Index] = searchElement)
+		loop (len - start)
+			if (array[start + A_Index] = searchElement)
 				return start + A_Index
 
 		return -1
 	}
 
 
-	join(delim:=",") {
+	static join(array, delim:=",") {
 
 		result := ""
 
-		for index, element in this
-			result .= element (index < this.Count() ? delim : "")
+		for index, element in array
+			result .= element (index < array.Length ? delim : "")
 
 		return result
 	}
 
 
-	keys() {
+	static keys(array) {
 
 		result := []
 
-		for key, value in this {
+		for key, value in array {
 			result.push(key)
 		}
 		return result
@@ -164,9 +158,9 @@ class _Array {
 
 	; if the provided index is negative, the array is still searched from front to back
 	; - Are we not able to return the first found starting from the back?
-	lastIndexOf(searchElement, fromIndex:=0) {
+	static lastIndexOf(array, searchElement, fromIndex:=0) {
 
-		len := this.Count()
+		len := array.Length
 		foundIdx := -1
 
 		if (fromIndex > len)
@@ -179,28 +173,28 @@ class _Array {
 		else
 			start := fromIndex
 
-		loop, % len - start
-			if (this[start + A_Index] = searchElement)
+		loop (len - start)
+			if (array[start + A_Index] = searchElement)
 				foundIdx := start + A_Index
 
 		return foundIdx
 	}
 
 
-	map(callback) {
+	static map(array, callback) {
 
 		result := []
 
-		for index, element in this
-			result.push(callback.Call(element, index, this))
+		for index, element in array
+			result.push(callback.Call(element, index, array))
 
 		return result
 	}
 
 
-	reduce(callback, initialValue:="__NULL__") {
+	static reduce(array, callback, initialValue:="__NULL__") {
 
-		len := this.Count()
+		len := array.Length
 
 		; initialValue not defined
 		if (initialValue == "__NULL__") {
@@ -211,11 +205,11 @@ class _Array {
 			}
 			else if (len == 1) {
 				; Single item array with no initial value
-				return this[1]
+				return array[1]
 			}
 
 			; Starting value is last element
-			initialValue := this[1]
+			initialValue := array[1]
 
 			; Loop n-1 times (start at 2nd element)
 			iterations := len - 1
@@ -241,19 +235,19 @@ class _Array {
 		; if no initialValue is passed, use first index as starting value and reduce
 		; array starting at index n+1. Otherwise, use initialValue as staring value
 		; and start at arrays first index.
-		Loop, % iterations
+		Loop (iterations)
 		{
 			adjIndex := A_Index + idxOffset
-			initialValue := callback.Call(initialValue, this[adjIndex], adjIndex, this)
+			initialValue := callback.Call(initialValue, array[adjIndex], adjIndex, array)
 		}
 
 		return initialValue
 	}
 
 
-	reduceRight(callback, initialValue:="__NULL__") {
+	static reduceRight(array, callback, initialValue:="__NULL__") {
 
-		len := this.Count()
+		len := array.Length
 
 		; initialValue not defined
 		if (initialValue == "__NULL__") {
@@ -264,11 +258,11 @@ class _Array {
 			}
 			else if (len == 1) {
 				; Single item array with no initial value
-				return this[1]
+				return array[1]
 			}
 
 			; Starting value is last element
-			initialValue := this[len]
+			initialValue := array[len]
 
 			; Loop n-1 times (starting at n-1 element)
 			iterations := len - 1
@@ -293,43 +287,43 @@ class _Array {
 		; If no initialValue is passed, use last index as starting value and reduce
 		; array starting at index n-1. Otherwise, use initialValue as starting value
 		; and start at arrays last index.
-		Loop, % iterations
+		Loop (iterations)
 		{
 			adjIndex := len - (A_Index - idxOffset)
-			initialValue := callback.Call(initialValue, this[adjIndex], adjIndex, this)
+			initialValue := callback.Call(initialValue, array[adjIndex], adjIndex, array)
 		}
 
 		return initialValue
 	}
 
 
-	reverse() {
+	static reverse(array) {
 
-		len := this.Count()
+		len := array.Length
 
-		Loop, % (len // 2)
+		Loop (len // 2)
 		{
 			idxFront := A_Index
 			idxBack := len - (A_Index - 1)
 
-			tmp := this[idxFront]
-			this[idxFront] := this[idxBack]
-			this[idxBack] := tmp
+			tmp := array[idxFront]
+			array[idxFront] := array[idxBack]
+			array[idxBack] := tmp
 		}
 
-		return this
+		return array
 	}
 
 
-	shift() {
+	static shift(array) {
 
-		return this.RemoveAt(1)
+		return array.RemoveAt(1)
 	}
 
 
-	slice(start:=0, end:=0) {
+	static slice(array, start:=0, end:=0) {
 
-		len := this.Count()
+		len := array.Length
 
 		; START: Adjust 1 based index, check signage, set defaults
 		if (start > 0)
@@ -352,8 +346,8 @@ class _Array {
 
 		result := []
 
-		loop, % last - begin
-			result.push(this[begin + A_Index])
+		loop (last - begin)
+			result.push(array[begin + A_Index])
 		if (result.Count() == 0) {
 			return ""
 		}
@@ -361,28 +355,28 @@ class _Array {
 	}
 
 
-	some(callback) {
+	static some(array, callback) {
 
-		for index, value in this
-			if callback.Call(value, index, this)
+		for index, value in array
+			if callback.Call(value, index, array)
 				return true
 
 		return false
 	}
 
 
-	sort(compare_fn:=0) {
+	static sort(array, compare_fn:=0) {
 
 		; Quicksort
-		this._Call(this, compare_fn)
+		array._Call(array, compare_fn)
 
-		return this
+		return array
 	}
 
 
-	splice(start, deleteCount:=-1, args*) {
+	static splice(array, start, deleteCount:=-1, args*) {
 
-		len := this.Count()
+		len := array.Length
 		exiting := []
 
 		; Determine starting index
@@ -398,18 +392,18 @@ class _Array {
 		}
 
 		; Remove elements
-		Loop, % deleteCount
+		Loop (deleteCount)
 		{
-			exiting.push(this[start])
-			this.RemoveAt(start)
+			exiting.push(array[start])
+			array.RemoveAt(start)
 		}
 
 		; Inject elements
-		Loop, % args.Count()
+		Loop (args.Count())
 		{
 			curIndex := start + (A_Index - 1)
 
-			this.InsertAt(curIndex, args[1])
+			array.InsertAt(curIndex, args[1])
 			args.removeAt(1)
 		}
 
@@ -417,30 +411,30 @@ class _Array {
 	}
 
 
-	toString() {
+	static toString(array) {
 		str := ""
 
-		for i,v in this
-			str .= v (i < this.Count() ? "," : "")
+		for i,v in array
+			str .= v (i < array.Length ? "," : "")
 
 		return str
 	}
 
 
-	unshift(args*) {
+	static unshift(array, args*) {
 
 		for index, value in args
-			this.InsertAt(A_Index, value)
+			array.InsertAt(A_Index, value)
 
-		return this.Count()
+		return array.Length
 	}
 
 
-	values() {
+	static values(array) {
 
 		result := []
 
-		for key, value in this {
+		for key, value in array {
 			result.push(value)
 		}
 		return result
@@ -448,29 +442,41 @@ class _Array {
 
 
 	; Internal functions
-	_compare_alphanum(a, b) {
+	static _compare_alphanum(array, a, b) {
 		; return 0 if a and b are the same
 		; return -1 if b is "" or undefined
 		; return 1 if a is greater than b
 		; return -1 if a is less than b
-		return a == b ? 0 : b == "" ? -1 : a > b ? 1 : a < b ? -1
+
+		if (a == b) {
+			return 0
+		} else if (b == "" || !IsSet(b)) {
+			return -1
+		} else if (a > b) {
+			return 1
+		} else if (a < b) {
+			return -1
+		}
 	}
 
 
-	_sort(array, compare_fn, left, right) {
-		if (array.Count() > 1) {
-			centerIdx := this._partition(array, compare_fn, left, right)
+	; TODO double-check _sort, _partition and _Call
+
+
+	static _sort(array, compare_fn, left, right) {
+		if (array.Length > 1) {
+			centerIdx := Arrays._partition(array, compare_fn, left, right)
 			if (left < centerIdx - 1) {
-				this._sort(array, compare_fn, left, centerIdx - 1)
+				Arrays._sort(array, compare_fn, left, centerIdx - 1)
 			}
 			if (centerIdx < right) {
-				this._sort(array, compare_fn, centerIdx, right)
+				Arrays._sort(array, compare_fn, centerIdx, right)
 			}
 		}
 	}
 
 
-	_partition(array, compare_fn, left, right) {
+	static _partition(array, compare_fn, left, right) {
 		pivot := array[floor(left + (right - left) / 2)]
 		i := left
 		j := right
@@ -483,7 +489,7 @@ class _Array {
 				j--
 			}
 			if (i <= j) {
-				this._swap(array, i, j)
+				Arrays._swap(array, i, j)
 				i++
 				j--
 			}
@@ -492,7 +498,7 @@ class _Array {
 	}
 
 
-	_swap(array, idx1, idx2) {
+	static _swap(array, idx1, idx2) {
 		tempVar := array[idx1]
 		array[idx1] := array[idx2]
 		array[idx2] := tempVar
@@ -505,28 +511,29 @@ class _Array {
 	; To expose left/right: Call(array, compare_fn:=0, left:=0, right:=0), but
 	; this would require passing a falsey value to compare_fn when only
 	; positioning needs altering: Call(myArr, <false/0/"">, 2, myArr.Count())
-	_Call(array, compare_fn:=0) {
+	static _Call(array, compare_fn:=0) {
 		; Default comparator
 		if !(compare_fn) {
-			compare_fn := objBindMethod(this, "_compare_alphanum")
+			compare_fn := objBindMethod(array, "_compare_alphanum")
 		}
 
 		; Default start/end index
 		left := left ? left : 1
-		right := right ? right : array.Count()
+		right := right ? right : array.Length
 
 		; Perform in-place sort
-		this._sort(array, compare_fn, left, right)
+		Arrays._sort(array, compare_fn, left, right)
 
 		; Return object ref for method chaining
 		return array
 	}
 
+
 	; Redirect to newer calling standard
-	__Call(method, args*) {
+	static __Call(array, method, args*) {
 		if (method = "")
-			return this._Call(args*)
+			return array._Call(args*)
 		if (IsObject(method))
-			return this._Call(method, args*)
+			return array._Call(method, args*)
 	}
 }
